@@ -1,9 +1,19 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Movies from "./components/Movies";
+import Navbar from "./components/Navbar";
+import WatchList from "./components/WatchList";
 
 function App() {
   return (
     <>
-      <h2>hello from tailwind</h2>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Movies />} />
+          <Route path="/watchlist" element={<WatchList />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
