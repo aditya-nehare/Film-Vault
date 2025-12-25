@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import MovieCard from "./MOvieCard";
 import Pagination from "./Pagination";
 
-const Movies = () => {
+const Movies = ({ handleAddToWatchList, handleRemoveFromWatchlist, WatchList }) => {
   const [movies, setMovies] = useState([]);
   const [pageNo, setPageNo] = useState(1);
 
@@ -41,9 +41,14 @@ const Movies = () => {
           {movies.map((movieObj) => {
             return (
               <MovieCard
+                key={movieObj.id}
                 poster_path={movieObj.poster_path}
                 name={movieObj.original_title}
                 rating={movieObj.vote_average}
+                handleAddToWatchList={handleAddToWatchList}
+                handleRemoveFromWatchlist={handleRemoveFromWatchlist}
+                movieObj={movieObj}
+                WatchList={WatchList}
               />
             );
           })}
