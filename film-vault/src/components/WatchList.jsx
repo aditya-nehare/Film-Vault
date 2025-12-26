@@ -1,10 +1,26 @@
 import { useState } from "react";
 
-function WatchList({ watchList }) {
+function WatchList({ watchList, setWatchList }) {
   const [search, setSearch] = useState("");
 
   let handleSearch = (e) => {
     setSearch(e.target.value);
+  };
+
+  let sortIncreasing = () => {
+    let sortIncreasing = watchList.sort((movieA, movieB) => {
+      return movieA.vote_average - movieB.vote_average;
+    });
+
+    setWatchList([...sortIncreasing]);
+  };
+
+  let sortDecreasing = () => {
+    let sortDecreasing = watchList.sort((movieA, movieB) => {
+      return movieB.vote_average - movieA.vote_average;
+    });
+
+    setWatchList([...sortDecreasing]);
   };
 
   return (
@@ -69,8 +85,41 @@ function WatchList({ watchList }) {
                   Movie
                 </th>
                 <th className="px-6 py-5 text-sm font-semibold text-gray-700">
-                  Rating
+                  <div className="flex items-center gap-3">
+                    <span>Rating</span>
+
+                    <div
+                      onClick={sortDecreasing}
+                      className="
+        flex items-center gap-1
+        px-2 py-1
+        rounded-full
+        bg-[#f5efe6]
+        text-xs
+        text-gray-700
+        cursor-pointer
+      "
+                    >
+                      <i className="fa-solid fa-arrow-up"></i>
+                    </div>
+
+                    <div
+                      onClick={sortIncreasing}
+                      className="
+        flex items-center gap-1
+        px-2 py-1
+        rounded-full
+        bg-[#f5efe6]
+        text-xs
+        text-gray-700
+        cursor-pointer
+      "
+                    >
+                      <i className="fa-solid fa-arrow-down"></i>
+                    </div>
+                  </div>
                 </th>
+
                 <th className="px-6 py-5 text-sm font-semibold text-gray-700">
                   Genre
                 </th>
@@ -94,7 +143,7 @@ function WatchList({ watchList }) {
                         <div className="flex items-center gap-5">
                           <img
                             className="h-36 w-24 rounded-xl object-cover"
-                            src={`https://image.tmdb.org/t/p/original/${movieObj.backdrop_path}`}
+                            src={`https://image.tmdb.org/t/p/original/${movieObj.poster_path}`}
                             alt=""
                           />
                           <h4 className="text-base font-medium text-gray-900">
@@ -103,7 +152,6 @@ function WatchList({ watchList }) {
                         </div>
                       </td>
                       <td className="px-9 py-6 text-sm text-gray-800">
-                        {" "}
                         {movieObj.vote_average}
                       </td>
                       <td className="px-6 py-6 text-sm text-gray-800">-</td>
