@@ -1,48 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Banner from "./components/Banner";
 import Movies from "./components/Movies";
 import Navbar from "./components/Navbar";
+import WatchList from "./components/WatchList";
 
 function App() {
-  let [WatchList, setWatchList] = useState([]);
+  const [watchList, setWatchList] = useState([]);
 
-  let handleAddToWatchList = (movieObj) => {
-    let newWatchList = [...WatchList, movieObj];
+  const handleAddToWatchList = (movieObj) => {
+    let newWatchList = [...watchList, movieObj];
+    localStorage.setItem("moviesApp", JSON.stringify(newWatchList));
     setWatchList(newWatchList);
     console.log(newWatchList);
   };
 
-  let handleRemoveFromWatchlist = (movieObj) => {
-    let filterWatchList = WatchList.filter(
-      (movie) => movie.id != movieObj.id
+  const handleRemoveFromWatchlist = (movieObj) => {
+    const filteredWatchList = watchList.filter(
+      (movie) => movie.id !== movieObj.id
     );
-    setWatchList(filterWatchList);
+    localStorage.setItem("moviesApp", JSON.stringify(filteredWatchList));
+    setWatchList(filteredWatchList);
   };
 
+  useEffect(() => {
+    let moviesFromLocalStorage = localStorage.getItem("moviesApp");
+    if (!moviesFromLocalStorage) {
+      return;
+    }
+    setWatchList(JSON.parse(moviesFromLocalStorage));
+  }, []);
+
   return (
-    <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Banner />
-                <Movies
-                  WatchList={WatchList}
-                  handleAddToWatchList={handleAddToWatchList}
-                  handleRemoveFromWatchlist={handleRemoveFromWatchlist}
-                />
-              </>
-            }
-          />
-          <Route path="/watchlist" element={<WatchList />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Banner />
+              <Movies
+                watchList={watchList}
+                handleAddToWatchList={handleAddToWatchList}
+                handleRemoveFromWatchlist={handleRemoveFromWatchlist}
+              />
+            </>
+          }
+        />
+
+        <Route
+          path="/watchlist"
+          element={
+            <>
+              <WatchList watchList={watchList} />
+            </>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

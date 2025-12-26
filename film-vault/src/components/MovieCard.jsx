@@ -5,11 +5,11 @@ function MovieCard({
   handleAddToWatchList,
   movieObj,
   handleRemoveFromWatchlist,
-  WatchList,
+  watchList,
 }) {
   function doesContain(movieObj) {
-    for (let i = 0; i < WatchList.length; i++) {
-      if (WatchList[i].id === movieObj.id) {
+    for (let i = 0; i < watchList.length; i++) {
+      if (watchList[i].id === movieObj.id) {
         return true;
       }
     }

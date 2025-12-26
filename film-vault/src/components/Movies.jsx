@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import MovieCard from "./MOvieCard";
 import Pagination from "./Pagination";
 
-const Movies = ({ handleAddToWatchList, handleRemoveFromWatchlist, WatchList }) => {
+const Movies = ({ handleAddToWatchList, handleRemoveFromWatchlist, watchList }) => {
   const [movies, setMovies] = useState([]);
   const [pageNo, setPageNo] = useState(1);
 
@@ -48,7 +48,7 @@ const Movies = ({ handleAddToWatchList, handleRemoveFromWatchlist, WatchList }) 
                 handleAddToWatchList={handleAddToWatchList}
                 handleRemoveFromWatchlist={handleRemoveFromWatchlist}
                 movieObj={movieObj}
-                WatchList={WatchList}
+                watchList={watchList}
               />
             );
           })}

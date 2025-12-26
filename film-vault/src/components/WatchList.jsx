@@ -1,4 +1,4 @@
-const WatchList = () => {
+function WatchList({ watchList }) {
   return (
     <div className="min-h-screen bg-[#faf7f2] pb-20">
       <div className="flex justify-center mb-12 px-4 pt-18">
@@ -71,36 +71,40 @@ const WatchList = () => {
             </thead>
 
             <tbody>
-              <tr className="border-t hover:bg-[#faf7f2] transition">
-                <td className="px-8 py-6">
-                  <div className="flex items-center gap-5">
-                    <img
-                      className="h-36 w-24 rounded-xl object-cover"
-                      src="https://4kwallpapers.com/images/walls/thumbs_3t/24843.jpg"
-                      alt=""
-                    />
-                    <h4 className="text-base font-medium text-gray-900">
-                      The Movie Name
-                    </h4>
-                  </div>
-                </td>
-
-                <td className="px-9 py-6 text-sm text-gray-800"> 8.4</td>
-
-                <td className="px-6 py-6 text-sm text-gray-800">Action</td>
-
-                <td className="px-7 py-6 text-right">
-                  <span className="text-sm font-medium text-red-500 cursor-pointer">
-                    Remove
-                  </span>
-                </td>
-              </tr>
+              {watchList.map((movieObj) => {
+                return (
+                  <tr className="border-t hover:bg-[#faf7f2] transition">
+                    <td className="px-8 py-6">
+                      <div className="flex items-center gap-5">
+                        <img
+                          className="h-36 w-24 rounded-xl object-cover"
+                          src={`https://image.tmdb.org/t/p/original/${movieObj.backdrop_path}`}
+                          alt=""
+                        />
+                        <h4 className="text-base font-medium text-gray-900">
+                          {movieObj.title}
+                        </h4>
+                      </div>
+                    </td>
+                    <td className="px-9 py-6 text-sm text-gray-800">
+                      {" "}
+                      {movieObj.vote_average}
+                    </td>
+                    <td className="px-6 py-6 text-sm text-gray-800">-</td>
+                    <td className="px-7 py-6 text-right">
+                      <span className="text-sm font-medium text-red-500 cursor-pointer">
+                        Remove
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default WatchList;
