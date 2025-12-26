@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import genreId from "../utils/genre";
 
-function WatchList({ watchList, setWatchList }) {
+function WatchList({ watchList, setWatchList, handleRemoveFromWatchlist }) {
   const [search, setSearch] = useState("");
   const [genreList, setGenreList] = useState(["All Genre"]);
+  const [currentGenre, setCurrenetGenre] = useState("All Genre");
 
   let handleSearch = (e) => {
     setSearch(e.target.value);
@@ -32,6 +33,10 @@ function WatchList({ watchList, setWatchList }) {
     setGenreList(["All Genre", ...new Set(temp)]);
     console.log(temp);
   }, [watchList]);
+
+  let handleFilter = (genre) => {
+    setCurrenetGenre(genre);
+  };
 
   return (
     <div className="min-h-screen bg-[#faf7f2] pb-20">
@@ -68,15 +73,12 @@ function WatchList({ watchList, setWatchList }) {
             {genreList.map((genre) => (
               <div
                 key={genre}
-                className="
-        h-10 px-6
-        rounded-full
-        bg-[#f5efe6]
-        text-gray-800
-        text-sm
-        flex items-center
-        cursor-pointer
-      "
+                onClick={() => handleFilter(genre)}
+                className={
+                  currentGenre === genre
+                    ? "h-10 px-6 rounded-full bg-black text-gray-100 text-sm flex items-center cursor-pointer"
+                    : "h-10 px-6 rounded-full bg-[#f5efe6] text-gray-800 text-sm flex items-center cursor-pointer hover:bg-black/10 transition"
+                }
               >
                 {genre}
               </div>
@@ -149,6 +151,13 @@ function WatchList({ watchList, setWatchList }) {
             <tbody>
               {watchList
                 .filter((movieObj) => {
+                  if (currentGenre === "All Genre") {
+                    return true;
+                  } else {
+                    return genreId[movieObj.genre_ids[0]] === currentGenre;
+                  }
+                })
+                .filter((movieObj) => {
                   return movieObj.title
                     .toLowerCase()
                     .includes(search.toLocaleLowerCase());
@@ -175,7 +184,12 @@ function WatchList({ watchList, setWatchList }) {
                         {genreId[movieObj.genre_ids[0]]}
                       </td>
                       <td className="px-7 py-6 text-right">
-                        <span className="text-sm font-medium text-red-500 cursor-pointer">
+                        <span
+                          onClick={() => {
+                            handleRemoveFromWatchlist(movieObj);
+                          }}
+                          className="text-sm font-medium text-red-500 cursor-pointer"
+                        >
                           Remove
                         </span>
                       </td>

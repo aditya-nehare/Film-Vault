@@ -20,8 +20,8 @@ function App() {
     const filteredWatchList = watchList.filter(
       (movie) => movie.id !== movieObj.id
     );
-    localStorage.setItem("moviesApp", JSON.stringify(filteredWatchList));
     setWatchList(filteredWatchList);
+    localStorage.setItem("moviesApp", JSON.stringify(filteredWatchList));
   };
 
   useEffect(() => {
@@ -54,7 +54,11 @@ function App() {
           path="/watchlist"
           element={
             <>
-              <WatchList watchList={watchList} setWatchList={setWatchList} />
+              <WatchList
+                watchList={watchList}
+                setWatchList={setWatchList}
+                handleRemoveFromWatchlist={handleRemoveFromWatchlist}
+              />
             </>
           }
         />
