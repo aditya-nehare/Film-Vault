@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import genreId from "../utils/genre";
 
 function WatchList({ watchList, setWatchList }) {
   const [search, setSearch] = useState("");
+  const [genreList, setGenreList] = useState(["All Genre"]);
 
   let handleSearch = (e) => {
     setSearch(e.target.value);
@@ -22,6 +24,14 @@ function WatchList({ watchList, setWatchList }) {
 
     setWatchList([...sortDecreasing]);
   };
+
+  useEffect(() => {
+    let temp = watchList.map((movieObj) => {
+      return genreId[movieObj.genre_ids[0]];
+    });
+    setGenreList(["All Genre", ...new Set(temp)]);
+    console.log(temp);
+  }, [watchList]);
 
   return (
     <div className="min-h-screen bg-[#faf7f2] pb-20">
@@ -55,15 +65,22 @@ function WatchList({ watchList, setWatchList }) {
           />
 
           <div className="flex gap-3 flex-wrap justify-center">
-            <div className="h-10 px-6 rounded-full bg-black text-white text-sm flex items-center">
-              Action
-            </div>
-            <div className="h-10 px-6 rounded-full bg-[#f5efe6] text-gray-800 text-sm flex items-center">
-              Comedy
-            </div>
-            <div className="h-10 px-6 rounded-full bg-[#f5efe6] text-gray-800 text-sm flex items-center">
-              Drama
-            </div>
+            {genreList.map((genre) => (
+              <div
+                key={genre}
+                className="
+        h-10 px-6
+        rounded-full
+        bg-[#f5efe6]
+        text-gray-800
+        text-sm
+        flex items-center
+        cursor-pointer
+      "
+              >
+                {genre}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -154,7 +171,9 @@ function WatchList({ watchList, setWatchList }) {
                       <td className="px-9 py-6 text-sm text-gray-800">
                         {movieObj.vote_average}
                       </td>
-                      <td className="px-6 py-6 text-sm text-gray-800">-</td>
+                      <td className="px-6 py-6 text-sm text-gray-800">
+                        {genreId[movieObj.genre_ids[0]]}
+                      </td>
                       <td className="px-7 py-6 text-right">
                         <span className="text-sm font-medium text-red-500 cursor-pointer">
                           Remove
