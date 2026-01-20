@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import genreId from "../utils/genre";
-import Advertise from "./Advertise";
 
 function WatchList({ watchList, setWatchList, handleRemoveFromWatchlist }) {
   const [search, setSearch] = useState("");
@@ -42,16 +41,12 @@ function WatchList({ watchList, setWatchList, handleRemoveFromWatchlist }) {
   return (
     <>
       <div className="min-h-screen bg-[#faf7f2] pb-10">
-        <div className="p-2 space-y-1">
-          <Advertise />
-        </div>
-
-        <div className="flex justify-center mb-12 px-4">
+        <div className="flex justify-center mb-12 px-4 ">
           <div
             className="
             flex flex-col md:flex-row
             items-center gap-4
-            px-6 py-4
+            px-6 py-4 mt-18
             rounded-3xl
             bg-white
             shadow-lg

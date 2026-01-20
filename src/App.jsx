@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Banner from "./components/Banner";
+import Footer from "./components/Footer";
 import Movies from "./components/Movies";
 import Navbar from "./components/Navbar";
+import Products from "./components/Products";
 import WatchList from "./components/WatchList";
-import Footer from "./components/Footer";
 
 function App() {
   const [watchList, setWatchList] = useState([]);
@@ -63,6 +64,7 @@ function App() {
             </>
           }
         />
+        <Route path="/products" element={<Products />} />
       </Routes>
       <Footer />
     </BrowserRouter>

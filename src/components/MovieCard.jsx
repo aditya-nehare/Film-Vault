@@ -22,7 +22,7 @@ function MovieCard({
           className="
     relative
     h-[50vh]
-    bg-cover bg-center
+    bg-cover bg-top
     rounded-2xl
     overflow-hidden
     transition-transform duration-300

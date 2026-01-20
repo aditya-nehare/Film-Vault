@@ -43,6 +43,12 @@ const Navbar = () => {
         >
           Watchlist
         </Link>
+        <Link
+          to="/products"
+          className="text-gray-300 hover:text-white transition"
+        >
+          Products
+        </Link>
       </nav>
 
     </div>

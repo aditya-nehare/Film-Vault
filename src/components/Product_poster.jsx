@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Advertise.css";
 
-function Advertise() {
+function Poster() {
   const [ads, setAds] = useState([]);
 
   useEffect(() => {
-    fetch("./ads.json")
+    fetch("./posters_section.json")
       .then((res) => res.json())
       .then((data) => {
         const activeAds = data.filter((ad) => ad.active);
@@ -19,9 +19,9 @@ function Advertise() {
   if (ads.length === 0) return null;
 
   return (
-    <section className="px-8 py-12 bg-[#ffffff]">
+    <section className="px-8 py-1 bg-[#ffffff]">
       <h3 className="text-lg font-semibold text-gray-900 mb-6">
-        Anime Section
+        Posters
       </h3>
 
       <div className="flex gap-6 overflow-x-auto scrollbar-hide pb-4">
@@ -63,4 +63,4 @@ function Advertise() {
   );
 }
 
-export default Advertise;
+export default Poster;
